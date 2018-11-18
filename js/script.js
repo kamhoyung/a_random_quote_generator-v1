@@ -1,54 +1,43 @@
 // FSJS - Random Quote Generator
 
-// Create the array of quote objects and name it quotes
-var quotes = [
-	{
-		quote: "Work Harder.",
-		source: "Casey Neistat",
-		year: "2015",
-		citation: "Youtube"
-	},
-	{
-		quote: "...be a tourist in other perspectives.",
-		source: "Questlove",
-		year: "2018",
-		citation: "Creative Quest"
-	},
-	{
-		quote: "You can't become a good designer by staying at home and look at a book. You’ve got to be out. Talk to other people, and travel because there’s nothing better than realizing that 200km from your door, things are different.",
-		source: "Erik Spiekerman",
-		year: "2010",
-		citation: "Interview with gestalten.tv"
-	},
-	{
-		quote: "Complaining is silly. Either act or forget.",
-		source: "Stefan Sagmeister",
-	},
-	{
-		quote: "Even if your ambitions are huge, start slow, start small, build gradually, build smart.",
-		source: "Gary Vaynerchuck",
-	}
-]
-var text = "";
+/* A function that gets a random RGB value, but between 0 and 99 instead of 255.
+This is to ensure readability, as in too light background makes the white text hard to read */
+function randomDarkRGBValue(){
+	return Math.floor(Math.random()*100);
+}
 
-// Create the getRandomQuote function and name it getRandomQuote
+// Using the randomDarkRGBValue function to create the rgb color as a string
+function randomColor(){
+	var color = "rgb(";
+	color += randomDarkRGBValue() + ",";
+	color += randomDarkRGBValue() + ",";
+	color += randomDarkRGBValue() + ")";
+	return color;
+}
+
+// A function named getRandomQuote that returns a random quote objects
 function getRandomQuote(i) {
-	var i = Math.floor(Math.random()*5);
+	var i = Math.floor(Math.random()*6);
 	//console.log(i+1);
 	return quotes[i];
 }
 
-
-// Create the printQuote funtion and name it printQuote
+// A funtion named printQuote that replaces the exisiting string in the element with the unique identifier called quote-box
 
 function printQuote() {
-	var gettingTheQuote = getRandomQuote();
-	text = "<p class='quote'>" + gettingTheQuote.quote + "</p>";
-	text += "<p class='source'>" + gettingTheQuote.source + "</p>";
-	/*citation and year should only be displayed if theres a match key: value
-  	text += "<span class='citation'>" getRandomQuote().citation + "</span>";
-  	text += "<span class='year'>" getRandomQuote().year "</span></p>";
-  	*/
+	var chosenQuote = getRandomQuote();
+	text = "<p class='tag'>" + chosenQuote.tag + "</p>";
+	text += "<p class='quote'>" + chosenQuote.quote + "</p>";
+	text += "<p class='source'>" + chosenQuote.source;
+		// conditional statement for showing citation and year, that will be displayed only if the key exists.
+	  	if ( "citation" in chosenQuote){
+			text += "<span class='citation'>" + chosenQuote.citation + "</span>";
+	  	};
+	  	if ("year" in chosenQuote) {
+	  		text += "<span class='year'>" + chosenQuote.year + "</span>";
+	  	};
+  	text += "</p>";
+  	document.body.style.background = randomColor();
   	document.getElementById('quote-box').innerHTML = text;
 }
 
