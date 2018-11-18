@@ -1,5 +1,6 @@
 // FSJS - Random Quote Generator
 
+
 /* A function that gets a random RGB value, but between 0 and 99 instead of 255.
 This is to ensure readability, as in too light background makes the white text hard to read */
 function randomDarkRGBValue(){
@@ -23,11 +24,15 @@ function getRandomQuote(i) {
 }
 
 // A funtion named printQuote that replaces the exisiting string in the element with the unique identifier called quote-box
-
 function printQuote() {
 	var chosenQuote = getRandomQuote();
 	text = "<p class='tag'>" + chosenQuote.tag + "</p>";
 	text += "<p class='quote'>" + chosenQuote.quote + "</p>";
+		/* conditional statement to lower the font size for quotes with a string containing more than 200 characters.
+		This is to ensure readability for smaller screen width */
+	  	if ( chosenQuote.quote.length > 200){
+			text +="<style>.quote {font-size: 1.7rem;line-height: 1.4;}</style>";
+		}
 	text += "<p class='source'>" + chosenQuote.source;
 		// conditional statement for showing citation and year, that will be displayed only if the key exists.
 	  	if ( "citation" in chosenQuote){
@@ -39,8 +44,11 @@ function printQuote() {
   	text += "</p>";
   	document.body.style.background = randomColor();
   	document.getElementById('quote-box').innerHTML = text;
+  	
 }
 
+//Calling the printQuote function ever 30 seconds
+setInterval(printQuote, 30000);
 
 // This event listener will respond to "Show another quote" button clicks
 // when user clicks anywhere on the button, the "printQuote" function is called
