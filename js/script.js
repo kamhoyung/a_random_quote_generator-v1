@@ -1,15 +1,13 @@
 // FSJS - Random Quote Generator
-var myTimer;
+let myTimer;
 
 /* A function that gets a random RGB value, but between 0 and 99 instead of 255.
 This is to ensure readability, as in too light background makes the white text hard to read */
-function randomDarkRGBValue(){
-	return Math.floor(Math.random()*100);
-}
+const randomDarkRGBValue = () => Math.floor(Math.random()*100);
 
 // Using the randomDarkRGBValue function to create the rgb color as a string
-function randomColor(){
-	var color = "rgb(";
+const randomColor = () => {
+	let color = "rgb(";
 	color += randomDarkRGBValue() + ",";
 	color += randomDarkRGBValue() + ",";
 	color += randomDarkRGBValue() + ")";
@@ -17,17 +15,17 @@ function randomColor(){
 }
 
 // A function named getRandomQuote that returns a random quote objects
-function getRandomQuote(i) {
-	var i = Math.floor(Math.random()*6);
-	//console.log(i+1);
+const getRandomQuote = i => {
+	i = Math.floor(Math.random()*6);
 	return quotes[i];
 }
 
 // A funtion named printQuote that replaces the exisiting string in the element with the unique identifier called quote-box
-function printQuote() {
-	var chosenQuote = getRandomQuote();
-	text = `<p class='tag'> ${chosenQuote.tag} </p>`;
-	text += `<p class='quote'> ${chosenQuote.quote} </p>`;
+const printQuote =()=> {
+	const chosenQuote = getRandomQuote();
+	text = `
+	<p class='tag'> ${chosenQuote.tag} </p>
+	<p class='quote'> ${chosenQuote.quote} </p>`;
 		/* conditional statement to lower the font size for quotes with a string containing more than 200 characters.
 		This is to ensure readability for smaller screen width */
 	  	if ( chosenQuote.quote.length > 200){
@@ -48,7 +46,7 @@ function printQuote() {
 }
 
 // a function in which calls the printQuote function every 10 seconds and resets the timer
-function timer() {
+const timer =() => {
 	clearInterval(myTimer);
 	myTimer = setInterval(printQuote, 10000);
 }
